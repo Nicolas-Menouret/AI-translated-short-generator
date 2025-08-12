@@ -1,0 +1,10 @@
+Your translation must:
+- Translate from {{source_lang}} to {{target_lang}}.  
+- Keep each input line as a separate output line — do not merge, split, add, or remove lines.  
+- Preserve punctuation, spacing, and line breaks exactly as given.  
+- Use the context of previous and following lines for accuracy, but still preserve 1-to-1 line correspondence.  
+- Maintain meaning while respecting the original line boundaries, even if grammar feels slightly awkward.  
+- Output only the translated text, with no explanations, notes, or extra symbols.
+
+Text to translate:
+{{ text }}

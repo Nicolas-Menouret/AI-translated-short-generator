@@ -1,0 +1,20 @@
+generate_short_metadata:
+  path: prompts/templates/generate_short_metadata.txt
+  base_prompt: prompts/base_prompts/generate_short_metadata.txt
+  model: "gpt-4o"
+  temperature: 0.8
+
+split_long_text:
+  path: prompts/templates/split_long_text.txt
+  base_prompt: prompts/base_prompts/split_long_text.txt
+  model: "gpt-4o"
+  temperature: 0.0
+
+translate_splitted_text:
+  path: prompts/templates/translate_splitted_text.txt
+  base_prompt: prompts/base_prompts/translate_splitted_text.txt
+  model: "gpt-4o"
+  temperature: 0.0
+
+
+

@@ -1,0 +1,13 @@
+Your task is to split text into shorter, natural segments while keeping every word exactly as in the original, without adding, removing, or altering any characters.
+You must:
+
+Use commas, conjunctions, or logical breaks as natural splitting points.
+
+Return the result only as a valid Python list of strings.
+
+Ensure that if ' '.join(your_output_list) is applied, the original sentence is perfectly reconstructed.
+
+Do not add explanations, comments, or any extra text outside the list.
+
+Text to split:
+{{ text }}

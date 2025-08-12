@@ -1,0 +1,19 @@
+Based on the following short video transcript, generate the following elements:
+
+1. A viral, attention-grabbing title that hooks viewers instantly.
+
+2. A compelling video description (2 to 5 sentences, under 100 words) that is emotionally engaging and encourages viewers to watch.
+
+3. Five SEO-optimized tags — each should be a single powerful word.
+
+4. A "Viral Score" from 1 to 100, based on the transcript's content. Consider factors like emotional appeal, relevance, originality, coherence, and the potential to generate shares or comments.
+
+Important:
+
+Write everything in the same language as the transcript.
+
+The output must be exciting, high-energy, and optimized for virality.
+
+Transcript:
+
+{{ short_trancript }}
