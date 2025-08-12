@@ -6,7 +6,8 @@ import streamlit as st
 import yaml
 
 sys.path.append(str(Path(__file__).resolve().parents[2]))
-from src.ai.transcription import subdivide_transcript_segments, transcribe_audio
+from src.ai.transcription import (subdivide_transcript_segments,
+                                  transcribe_audio)
 from src.core.setup import setup_dirs
 from src.processing.videos import extract_audio, get_video_duration, trim_video
 from src.processing.youtube_downloader import download_video_from_youtube
@@ -53,6 +54,10 @@ def download_video_component():
 def select_video_component():
     videos_list = [file.stem for file in raw_videos_dir.iterdir()]
 
+    if len(videos_list) == 0:
+        st.write("You don't have any video to process. Please download a video first.")
+        return
+
     if st.session_state.get("youtube_video_path"):
         default_index = videos_list.index(
             st.session_state.get("youtube_video_path").stem
@@ -72,6 +77,7 @@ def trim_video_component():
     st.title("Trim Long Video")
     video_path = raw_videos_dir / (st.session_state.video_to_process + ".mp4")
     video_duration = get_video_duration(video_path)
+    print(video_duration)
     timestamp_range = generate_minute_list("00:00:00.00", video_duration)
 
     video_start, video_end = st.select_slider(
@@ -172,14 +178,15 @@ if __name__ == "__main__":
 
     select_video_component()
 
-    st.divider()
+    if st.session_state.get("video_to_process") is not None:
+        st.divider()
 
-    trim_video_component()
+        trim_video_component()
 
-    st.divider()
+        st.divider()
 
-    transcription_component()
+        transcription_component()
 
-    st.divider()
+        st.divider()
 
-    manual_segments_correction_component()
+        manual_segments_correction_component()

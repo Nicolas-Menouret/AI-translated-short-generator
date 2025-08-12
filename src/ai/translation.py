@@ -21,8 +21,7 @@ def translate_text_chunk(
         task_prompt=prompt["task_prompt"],
         model=prompt["model"],
         temperature=prompt["temperature"],
-        structured_output=list[str],
-    )
+    ).split("\n")
 
     if len(translated_text) == len(text_chunk):
         return translated_text
@@ -70,15 +69,15 @@ def translate_segments(
 
 
 def create_translated_segments(
-    segments: list[Segment], translated_segments: list[str]
+    segments: list[Segment], translated_text_segments: list[str]
 ) -> list[Segment]:
     translated_segments = []
-
+    print(translated_text_segments)
     assert len(segments) == len(
-        translated_segments
-    ), f"Number of segments and translated segments should match: {len(segments)}!={len(translated_segments)}"
+        translated_text_segments
+    ), f"Number of segments and translated segments should match: {len(segments)}!={len(translated_text_segments)}"
 
-    for segment, translated_text in zip(segments, translated_segments):
+    for segment, translated_text in zip(segments, translated_text_segments):
         words = translated_text.split(" ")
         segment_duration = segment.end - segment.start
 

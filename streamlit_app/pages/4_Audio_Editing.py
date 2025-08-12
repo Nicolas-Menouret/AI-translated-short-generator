@@ -37,6 +37,14 @@ def add_music_component():
     ]
     musics_list = [file.stem for file in musics_dir.iterdir()]
 
+    if len(shorts_list) == 0:
+        st.write("You don't have any short to process. Please generate a short first.")
+        return
+
+    if len(musics_list) == 0:
+        st.write("You don't have any music to process. Please download a music first.")
+        return
+
     col_a, col_b = st.columns(2)
 
     with col_a:
@@ -75,6 +83,11 @@ def modify_volume_component():
         for file in shorts_dir.iterdir()
         if file.is_file() and str(file).endswith("mp4")
     ]
+
+    if len(shorts_list) == 0:
+        st.write("You don't have any short to process. Please generate a short first.")
+        return
+
     short_name = st.selectbox(
         "Select the short you want to modify audio volume:", shorts_list
     )

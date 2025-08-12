@@ -63,12 +63,11 @@ def download_video_from_youtube(
             info = ydl.extract_info(video_url, download=False)
             title = info.get("title", "video")
             sanitized_title = sanitize_filename(title)
-            video_dir = output_dir / sanitized_title
-            video_dir.mkdir(parents=True, exist_ok=True)
+            output_dir.mkdir(parents=True, exist_ok=True)
 
         # Define output filenames
-        video_filename = video_dir / "video.%(ext)s"
-        audio_filename = video_dir / "audio.%(ext)s"
+        video_filename = output_dir / "video.%(ext)s"
+        audio_filename = output_dir / "audio.%(ext)s"
 
         # Download video stream only
         ydl_opts_video = {
@@ -94,10 +93,10 @@ def download_video_from_youtube(
         with yt_dlp.YoutubeDL(ydl_opts_audio) as ydl:
             ydl.download([video_url])
 
-        video_file = next(video_dir.glob("video.*"))
-        audio_file = next(video_dir.glob("audio.*"))
+        video_file = next(output_dir.glob("video.*"))
+        audio_file = next(output_dir.glob("audio.*"))
 
-        output_path = video_dir / f"{sanitized_title}.mp4"
+        output_path = output_dir / f"{sanitized_title}.mp4"
         merge_audio_video(video_file, audio_file, output_path)
         return output_path
 

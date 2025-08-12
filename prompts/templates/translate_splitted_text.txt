@@ -6,5 +6,5 @@ Your translation must:
 - Maintain meaning while respecting the original line boundaries, even if grammar feels slightly awkward.  
 - Output only the translated text, with no explanations, notes, or extra symbols.
 
-Text to translate:
+Text to translate, just give the translation as the answer:
 {{ text }}

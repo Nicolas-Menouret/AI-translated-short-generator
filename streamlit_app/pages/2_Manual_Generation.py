@@ -9,13 +9,11 @@ sys.path.append(str(Path(__file__).resolve().parents[2]))
 from datetime import datetime, timedelta
 
 from src.ai.translation import create_translated_segments, translate_segments
-from src.core.setup import load_subtitles_config, load_transcript_segments, setup_dirs
+from src.core.setup import (load_subtitles_config, load_transcript_segments,
+                            setup_dirs)
 from src.generate_shorts import generate_subtitled_short
-from src.processing.videos import (
-    extract_and_crop_frame,
-    get_video_duration,
-    get_video_resolution,
-)
+from src.processing.videos import (extract_and_crop_frame, get_video_duration,
+                                   get_video_resolution)
 
 st.set_page_config(layout="wide")
 
@@ -69,6 +67,22 @@ def on_crop_position_change():
         )
 
 
+def init_video_state(video_name: str):
+    if not st.session_state.get("video_path"):
+        st.session_state.video_path, st.session_state.transcript_path = get_video_paths(
+            video_name
+        )
+        st.session_state.language, st.session_state.segments = load_transcript_segments(
+            st.session_state.transcript_path
+        )
+        st.session_state.video_width, st.session_state.video_height = (
+            get_video_resolution(st.session_state.video_path)
+        )
+        st.session_state.video_duration = get_video_duration(
+            st.session_state.video_path
+        )
+
+
 def on_video_selection_change():
     st.session_state.video_path, st.session_state.transcript_path = get_video_paths(
         st.session_state.selected_video
@@ -84,9 +98,18 @@ def on_video_selection_change():
 
 def video_selector_component():
     st.title("Video")
+    video_list = [file.stem for file in raw_videos_dir.iterdir()]
+
+    if len(video_list) == 0:
+        st.write("You don't have any video to process. Please download a video first.")
+        return
+
+    if st.session_state.get("selected_video") is None:
+        init_video_state(video_list[0])
+
     st.selectbox(
         "Select the video you want to process:",
-        [file.stem for file in raw_videos_dir.iterdir()],
+        video_list,
         key="selected_video",
         on_change=on_video_selection_change,
     )
@@ -233,7 +256,7 @@ def manual_correction_component():
         )
 
 
-def crop_componenet():
+def crop_component():
     st.title("Crop Settings")
 
     st.toggle(label="Manual Cropping", key="crop_manually")
@@ -288,7 +311,6 @@ def short_generator_component():
                 horizontal_center_crop_position=st.session_state.get(
                     "horizontal_position", None
                 ),
-                temporary_dir=Path("temp/"),
             )
 
             st.session_state.short_generated = shorts_dir / (short_title + ".mp4")
@@ -307,26 +329,27 @@ if __name__ == "__main__":
 
     video_selector_component()
 
-    st.divider()
+    if st.session_state.get("selected_video") is not None:
+        st.divider()
 
-    segments_selector_component()
+        segments_selector_component()
 
-    st.divider()
+        st.divider()
 
-    translator_component()
+        translator_component()
 
-    st.divider()
+        st.divider()
 
-    manual_correction_component()
+        manual_correction_component()
 
-    st.divider()
+        st.divider()
 
-    crop_componenet()
+        crop_component()
 
-    st.divider()
+        st.divider()
 
-    short_generator_component()
+        short_generator_component()
 
-    st.divider()
+        st.divider()
 
-    short_preview_component()
+        short_preview_component()

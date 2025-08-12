@@ -1,11 +1,19 @@
 import os
 from pathlib import Path
+from typing import List
 
 import assemblyai as aai
 import yaml
+from pydantic import BaseModel
 
 from src.llm.llm_wraper import generate_chat_response
 from src.llm.prompt_manager import PromptManager
+
+
+# Pydantic model for structured output
+class SplitTextOutput(BaseModel):
+    segments: List[str]
+
 
 prompt_mgr = PromptManager()
 
@@ -80,17 +88,24 @@ def split_text_using_llm(text: str) -> list[str]:
         task_prompt=prompt["task_prompt"],
         model=prompt["model"],
         temperature=prompt["temperature"],
-        structured_output=list[str],
+        structured_output=SplitTextOutput,
     )
 
-    if (" ").join(splitted_text) == text:
-        return splitted_text
+    # Extract the segments from the Pydantic model
+    if isinstance(splitted_text, SplitTextOutput):
+        result = splitted_text.segments
+    else:
+        # Fallback if structured output fails
+        result = [text]
+
+    if (" ").join(result) == text:
+        return result
     else:
         return [text]
 
 
 def subdivide_transcript_segments(
-    transcript_path: Path, max_segment_length: int = 60
+    transcript_path: Path, max_segment_length: int = 100
 ) -> None:
     with open(transcript_path, "r", encoding="utf-8") as f:
         transcript = yaml.safe_load(f)

@@ -1,21 +1,15 @@
 from pathlib import Path
 
-from ai.short_content_selection import generate_shorts_from_long_transcript
 from src.ai.metadata_generation import generate_short_metadata
-from src.ai.speaker_detection import (
-    get_average_speaker_position,
-    group_bboxes_by_overlap,
-)
+from src.ai.short_content_selection import generate_shorts_from_long_transcript
+from src.ai.speaker_detection import (get_average_speaker_position,
+                                      group_bboxes_by_overlap)
 from src.ai.translation import create_translated_segments, translate_segments
 from src.core.models import Segment
 from src.processing.subtitles import generate_ass_file, generate_subtitles
-from src.processing.videos import (
-    burn_subtitles,
-    get_video_resolution,
-    merge_videos,
-    resize_video_to_9_16,
-    trim_video,
-)
+from src.processing.videos import (burn_subtitles, get_video_resolution,
+                                   merge_videos, resize_video_to_9_16,
+                                   trim_video)
 
 
 def generate_top_short_proposal(

@@ -12,6 +12,15 @@ def setup_dirs():
     subtitle_styles_dir = Path("configs/subtitles_configs")
     shorts_dir = Path("data/shorts")
 
+    for dir in [
+        raw_videos_dir,
+        musics_dir,
+        transcripts_dir,
+        subtitle_styles_dir,
+        shorts_dir,
+    ]:
+        dir.mkdir(parents=True, exist_ok=True)
+
     return raw_videos_dir, musics_dir, transcripts_dir, subtitle_styles_dir, shorts_dir
 
 
