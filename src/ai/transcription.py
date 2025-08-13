@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from typing import List
+import re
 
 import assemblyai as aai
 import yaml
@@ -79,6 +80,11 @@ def split_sentences_on_long_time_gap(
 
     return new_segments
 
+def split_text_on_comas(text:str) -> list[str]:
+    # Split only on commas not between digits, but keep the comma
+    parts = re.split(r'(?<!\d),(?!\d)', text)
+    return [p.strip() + ',' if not p.strip().endswith(',') and i < len(parts) - 1 else p.strip()
+            for i, p in enumerate(parts)]                                          
 
 def split_text_using_llm(text: str) -> list[str]:
     prompt = prompt_mgr.render("split_long_text", {"text": text})
@@ -111,8 +117,11 @@ def subdivide_transcript_segments(
         transcript = yaml.safe_load(f)
 
     segments = []
-
+    coma_split_segments = []
     for segment in transcript["segments"]:
+        coma_split_segments.extend(split_text_on_comas(segment))
+
+    for segment in coma_split_segments:
         if len(segment) < max_segment_length:
             segments.append(segment)
         else:
