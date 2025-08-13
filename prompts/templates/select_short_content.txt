@@ -1,7 +1,7 @@
 I will provide a transcript divided into numbered sentences. You need to select a range of consecutive sentences that will create the most engaging short.
 
 Requirements:
-- The short must be approximately {target_duration} seconds long
+- The short must be approximately {{ target_duration }} seconds long
 - Select consecutive sentences (e.g., sentences 3-7, not 3, 5, 8)
 - Focus on the most engaging, impactful content that will go viral
 - Ensure the selection tells a complete story or makes a clear point
@@ -22,6 +22,6 @@ You must provide a structured response with these three fields:
 3. **end_index**: The ending sentence number (1-based indexing)
 
 Here are the numbered sentences:
-{sentences}
+{{ sentences }}
 
 Please provide your structured response with brainstorming, start_index, and end_index:
