@@ -15,8 +15,7 @@ from src.processing.videos import (burn_subtitles, get_video_resolution,
 def generate_top_short_proposal(
     segments: list[Segment],
     video_lang: str,
-    max_short_duration: int,
-    min_short_duration: int = 30,
+    target_duration: int = 60,
     chunk_duration: int = 180,
     chunk_overlap: int = 60,
     translate_subtitles: bool = False,
@@ -24,7 +23,7 @@ def generate_top_short_proposal(
 ):
 
     shorts_proposal = generate_shorts_from_long_transcript(
-        segments, max_short_duration, min_short_duration, chunk_duration, chunk_overlap
+        segments, target_duration, chunk_duration, chunk_overlap
     )
     shorts_metadata = []
 

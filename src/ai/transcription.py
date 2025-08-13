@@ -1,20 +1,13 @@
 import os
 import re
 from pathlib import Path
-from typing import List
 
 import assemblyai as aai
 import yaml
-from pydantic import BaseModel
 
+from src.core.models import SplitTextOutput
 from src.llm.llm_wraper import generate_chat_response
 from src.llm.prompt_manager import PromptManager
-
-
-# Pydantic model for structured output
-class SplitTextOutput(BaseModel):
-    segments: List[str]
-
 
 prompt_mgr = PromptManager()
 

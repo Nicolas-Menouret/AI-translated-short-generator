@@ -1,4 +1,6 @@
-from pydantic import BaseModel
+from typing import List
+
+from pydantic import BaseModel, Field
 
 
 class Word:
@@ -24,8 +26,25 @@ class Subtitle:
         self.words = words
 
 
+class SplitTextOutput(BaseModel):
+    segments: List[str]
+
+
 class VideoMetadata(BaseModel):
     title: str
     description: str
     tags: list[str]
     viral_score: int
+
+
+class ShortContentSelection(BaseModel):
+    brainstorming: str = Field(
+        ...,
+        description="Initial brainstorming or ideation for the short content selection",
+    )
+    start_index: int = Field(
+        ..., description="Start index of the selected content (inclusive)"
+    )
+    end_index: int = Field(
+        ..., description="End index of the selected content (inclusive)"
+    )

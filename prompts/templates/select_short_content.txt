@@ -1,0 +1,27 @@
+I will provide a transcript divided into numbered sentences. You need to select a range of consecutive sentences that will create the most engaging short.
+
+Requirements:
+- The short must be approximately {target_duration} seconds long
+- Select consecutive sentences (e.g., sentences 3-7, not 3, 5, 8)
+- Focus on the most engaging, impactful content that will go viral
+- Ensure the selection tells a complete story or makes a clear point
+- Avoid boring, repetitive, or filler content
+- Prioritize content with emotional hooks, surprising facts, or compelling narratives
+
+Instructions:
+1. First, analyze all sentences and brainstorm what makes the most compelling short
+2. Consider what would make viewers want to watch, share, and engage with the content
+3. Select a consecutive range that fits the duration requirements
+4. Provide your brainstorming thoughts and then output the start and end sentence numbers
+
+Output Format:
+You must provide a structured response with these three fields:
+
+1. **brainstorming**: A detailed explanation of your content selection strategy, why you chose this specific range, and what makes it viral-worthy
+2. **start_index**: The starting sentence number (1-based indexing)
+3. **end_index**: The ending sentence number (1-based indexing)
+
+Here are the numbered sentences:
+{sentences}
+
+Please provide your structured response with brainstorming, start_index, and end_index:

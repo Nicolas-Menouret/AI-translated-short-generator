@@ -26,6 +26,22 @@ def get_video_paths(video_name: str) -> tuple[Path, Path, Path]:
     )
 
 
+def init_video_state(video_name: str):
+    if not st.session_state.get("video_path"):
+        st.session_state.video_path, st.session_state.transcript_path = get_video_paths(
+            video_name
+        )
+        st.session_state.language, st.session_state.segments = load_transcript_segments(
+            st.session_state.transcript_path
+        )
+        st.session_state.video_width, st.session_state.video_height = (
+            get_video_resolution(st.session_state.video_path)
+        )
+        st.session_state.video_duration = get_video_duration(
+            st.session_state.video_path
+        )
+
+
 def on_video_selection_change():
     st.session_state.video_path, st.session_state.transcript_path = get_video_paths(
         st.session_state.selected_video
@@ -41,9 +57,18 @@ def on_video_selection_change():
 
 def video_selector_component():
     st.title("Video")
+    video_list = [file.stem for file in raw_videos_dir.iterdir()]
+
+    if len(video_list) == 0:
+        st.write("You don't have any video to process. Please download a video first.")
+        return
+
+    if st.session_state.get("selected_video") is None:
+        init_video_state(video_list[0])
+
     st.selectbox(
         "Select the video you want to process:",
-        [file.stem for file in raw_videos_dir.iterdir()],
+        video_list,
         key="selected_video",
         on_change=on_video_selection_change,
     )
@@ -162,14 +187,15 @@ if __name__ == "__main__":
 
     video_selector_component()
 
-    st.divider()
+    if st.session_state.get("selected_video") is not None:
+        st.divider()
 
-    subtitles_parameters_component()
+        subtitles_parameters_component()
 
-    st.divider()
+        st.divider()
 
-    short_proposition_component()
+        short_proposition_component()
 
-    st.divider()
+        st.divider()
 
-    short_preview_component()
+        short_preview_component()

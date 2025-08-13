@@ -16,5 +16,11 @@ translate_splitted_text:
   model: "gpt-4o"
   temperature: 0.0
 
+select_short_content:
+  path: prompts/templates/select_short_content.txt
+  base_prompt: prompts/base_prompts/select_short_content.txt
+  model: "gpt-4o"
+  temperature: 0.0
+
 
 
