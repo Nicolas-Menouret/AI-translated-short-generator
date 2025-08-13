@@ -7,6 +7,7 @@ ass_parameters:
   BackColour: '&H0001B5E0'
   BorderStyle: 3 
   Outline: 1
+  Alignment: bottom-middle
   Shadow: 0
   MarginL: 40
   MarginR: 40 

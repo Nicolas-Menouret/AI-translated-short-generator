@@ -6,7 +6,7 @@ import streamlit as st
 sys.path.append(str(Path(__file__).resolve().parents[2]))
 
 
-from ai.short_content_selection import calculate_segments_list_duration
+from src.ai.short_content_selection import calculate_segments_list_duration
 from src.core.setup import (load_subtitles_config, load_transcript_segments,
                             setup_dirs)
 from src.generate_shorts import (generate_subtitled_short,

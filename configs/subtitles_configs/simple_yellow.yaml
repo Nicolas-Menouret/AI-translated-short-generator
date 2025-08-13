@@ -1,18 +1,25 @@
 ass_parameters:
   fontname: 'Impact'
-  fontsize: 10
-  PrimaryColour: '&H00E0B501'
+  fontsize: 0.08
+  PrimaryColour: '&H0001B5E0'
   SecondaryColour: '&H0000FF00'
   OutlineColour: '&H00000000'
   BackColour: '&H64000000'
   BorderStyle: 1 
-  Outline: 3
-  Shadow: 2
-  MarginL: 10
-  MarginR: 10 
-  MarginV: 100
+  Outline: 7
+  Alignment: bottom-middle
+  Shadow: 10
+  MarginL: 50
+  MarginR: 50 
+  MarginV: 0.20
 
-zoom_in_effect: False
-box_highlight: False
-color_highlight: False
-karaoke_highlight: False
+special_effects:
+  zoom_in: False
+  box_highlight: False
+  color_highlight: False
+  karaoke_highlight: False
+
+subtitles_parameters:
+  max_words: 3
+  max_length: 20
+  upper_case: False

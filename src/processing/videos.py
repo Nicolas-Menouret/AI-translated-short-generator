@@ -3,6 +3,7 @@ import subprocess
 from pathlib import Path
 
 import numpy as np
+import cv2
 
 
 def get_video_resolution(video_path: Path) -> tuple[int, int] | None:

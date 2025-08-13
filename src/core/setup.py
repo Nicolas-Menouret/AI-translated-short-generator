@@ -29,6 +29,18 @@ def load_subtitles_config(subtitles_config_path: Path, video_height: int) -> dic
         subtitles_config = yaml.safe_load(file)
 
     ass_parameters = subtitles_config["ass_parameters"]
+    
+    alignement_dict = {"bottom-middle": 2, 
+                       "bottom-left": 1, 
+                       "bottom-right": 3, 
+                       "top-left": 7, 
+                       "top-right": 9,
+                       "top-middle": 8,
+                       "middle-left": 4,
+                       "middle-right": 6,
+                       "middle-middle": 5}
+    
+    ass_parameters["Alignment"] = alignement_dict[subtitles_config["ass_parameters"]["Alignment"]]
     ass_parameters["MarginV"] = int(
         video_height * subtitles_config["ass_parameters"]["MarginV"]
     )
