@@ -200,7 +200,7 @@ def generate_shorts_from_long_transcript(
     # Split into chunks
     sentences = merge_segments_to_sentences(segments)
     chunks = chunk_transcript(sentences, chunk_duration, chunk_overlap)
-
+    print(f"Number of chunks: {len(chunks)}")
     shorts = []
     for chunk in chunks:
         selected_sentences = process_chunk_for_short(chunk, target_duration, threshold)

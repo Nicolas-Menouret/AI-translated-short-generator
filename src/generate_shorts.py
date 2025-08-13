@@ -12,11 +12,11 @@ from src.processing.videos import (burn_subtitles, get_video_resolution,
                                    trim_video)
 
 
-def generate_top_short_proposal(
+def generate_shorts_proposal(
     segments: list[Segment],
     video_lang: str,
     target_duration: int = 60,
-    chunk_duration: int = 180,
+    chunk_duration: int = 360,
     chunk_overlap: int = 60,
     translate_subtitles: bool = False,
     translate_language: str = "French",

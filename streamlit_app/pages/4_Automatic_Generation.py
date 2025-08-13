@@ -9,9 +9,10 @@ sys.path.append(str(Path(__file__).resolve().parents[2]))
 from src.ai.short_content_selection import calculate_segments_list_duration
 from src.core.setup import (load_subtitles_config, load_transcript_segments,
                             setup_dirs)
-from src.generate_shorts import (generate_subtitled_short,
-                                 generate_top_short_proposal)
+from src.generate_shorts import (generate_shorts_proposal,
+                                 generate_subtitled_short)
 from src.processing.videos import get_video_duration, get_video_resolution
+from src.processing.youtube_downloader import sanitize_filename
 
 st.set_page_config(layout="wide")
 
@@ -120,17 +121,13 @@ def short_proposition_component():
 
     st.title("Shorts Proposal")
 
-    st.toggle("One minute max short", value=True, key="limited_duration")
-
     if st.button("Generate Short Proposal", use_container_width=True):
         with st.spinner("Generating short proposals..."):
             st.session_state.shorts_proposal, st.session_state.shorts_metadata = (
-                generate_top_short_proposal(
+                generate_shorts_proposal(
                     st.session_state.segments,
                     st.session_state.language,
-                    max_short_duration=(
-                        60 if st.session_state.get("limited_duration", True) else None
-                    ),
+                    target_duration=60,
                     translate_subtitles=st.session_state.get(
                         "translate_subtitles", False
                     ),
@@ -160,13 +157,16 @@ def short_proposition_component():
             with st.spinner("Generating the short..."):
                 generate_subtitled_short(
                     st.session_state.video_path,
-                    shorts_dir / (st.session_state.shorts_metadata[i].title + ".mp4"),
+                    shorts_dir
+                    / (
+                        sanitize_filename(st.session_state.shorts_metadata[i].title)
+                        + ".mp4"
+                    ),
                     st.session_state.shorts_proposal[i],
                     st.session_state.subtitles_parameters,
                     0,
                     automatic_speaker_detection=True,
                     horizontal_center_crop_position=None,
-                    temporary_dir=Path("temp/"),
                 )
 
                 st.session_state.short_generated = shorts_dir / (

@@ -16,4 +16,4 @@ The output must be exciting, high-energy, and optimized for virality.
 
 Transcript:
 
-{{ short_trancript }}
+{{ short_transcript }}

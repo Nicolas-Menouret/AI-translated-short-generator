@@ -211,7 +211,7 @@ def ass_parameters_component():
             ),
         )
         ass_params["Alignment"] = selected_alignment
-        st.caption(f"How is the text aligned on the screen")
+        st.caption("How is the text aligned on the screen")
 
     # Row 3: Margins
     st.write("**Margins**")
